@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SiliTech Pro — Soluciones en Silicona</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'sans-serif'],
+            body: ['Barlow', 'sans-serif'],
+            condensed: ['Barlow Condensed', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              orange: '#F4600C',
+              dark: '#0A0A0A',
+              steel: '#1C2331',
+              silver: '#8A9BB0',
+              light: '#EDF2F7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --orange: #F4600C;
+      --dark: #0A0A0A;
+      --steel: #1C2331;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Barlow', sans-serif; background: #0A0A0A; color: #EDF2F7; overflow-x: hidden; }
+
+    /* HERO */
+    .hero-bg {
+      background: linear-gradient(135deg, #0A0A0A 0%, #1C2331 60%, #0A0A0A 100%);
+      position: relative;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(244,96,12,0.03) 40px,
+        rgba(244,96,12,0.03) 42px
+      );
+    }
+    .hero-blob {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(244,96,12,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -100px; right: -150px;
+      pointer-events: none;
+    }
+
+    /* NAV */
+    nav { backdrop-filter: blur(12px); background: rgba(10,10,10,0.8); border-bottom: 1px solid rgba(244,96,12,0.2); }
+
+    /* PRODUCT CARDS */
+    .product-card {
+      background: linear-gradient(145deg, #151d29, #1a2535);
+      border: 1px solid rgba(244,96,12,0.15);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #F4600C, #ff9a4d);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(244,96,12,0.22); border-color: rgba(244,96,12,0.4); }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    /* PRODUCT VISUAL */
+    .product-visual {
+      width: 100%; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* LABEL BADGE */
+    .badge {
+      display: inline-block;
+      background: rgba(244,96,12,0.15);
+      border: 1px solid rgba(244,96,12,0.4);
+      color: #F4600C;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 2px;
+    }
+
+    /* CTA BUTTON */
+    .btn-primary {
+      background: linear-gradient(135deg, #F4600C, #d94e00);
+      color: white; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border: none; cursor: pointer;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block; text-decoration: none;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: scale(1.03); }
+
+    .btn-outline {
+      background: transparent;
+      color: #F4600C; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 13px 31px;
+      border: 2px solid #F4600C; cursor: pointer;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      display: inline-block; text-decoration: none;
+    }
+    .btn-outline:hover { background: rgba(244,96,12,0.1); transform: scale(1.03); }
+
+    /* STAT BOXES */
+    .stat-box {
+      border-left: 3px solid #F4600C;
+      padding-left: 16px;
+    }
+
+    /* FORM */
+    .lead-form { background: linear-gradient(145deg, #141d28, #1a2535); border: 1px solid rgba(244,96,12,0.25); }
+    .form-input {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: #EDF2F7; padding: 12px 16px; width: 100%; outline: none;
+      font-family: 'Barlow', sans-serif; transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: #F4600C; background: rgba(244,96,12,0.05); }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.35s; opacity: 0; }
+    .delay-4 { animation-delay: 0.5s; opacity: 0; }
+
+    /* DIVIDER */
+    .slash-divider { clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); }
+
+    /* PRODUCT SVG ILLUSTRATIONS */
+    svg.product-svg { filter: drop-shadow(0 8px 32px rgba(244,96,12,0.35)); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <polygon points="4,28 16,4 28,28" fill="#F4600C" opacity="0.9"/>
+        <polygon points="10,28 16,16 22,28" fill="#0A0A0A"/>
+      </svg>
+      <span class="font-display text-2xl tracking-widest text-white">SILITECH<span class="text-brand-orange">PRO</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 font-condensed font-600 tracking-wider text-sm uppercase text-brand-silver">
+      <a href="#productos" class="hover:text-brand-orange transition-colors">Productos</a>
+      <a href="#ventajas" class="hover:text-brand-orange transition-colors">Ventajas</a>
+      <a href="#contacto" class="hover:text-brand-orange transition-colors">Contacto</a>
+    </div>
+    <a href="#contacto" class="btn-primary text-sm hidden md:inline-block">Cotizar Ahora</a>
+    <!-- Mobile menu btn -->
+    <button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-4 font-condensed font-600 tracking-wider text-sm uppercase text-brand-silver border-t border-white/10 pt-4">
+    <a href="#productos" class="hover:text-brand-orange transition-colors">Productos</a>
+    <a href="#ventajas" class="hover:text-brand-orange transition-colors">Ventajas</a>
+    <a href="#contacto" class="hover:text-brand-orange transition-colors">Contacto</a>
+    <a href="#contacto" class="btn-primary text-center text-sm">Cotizar Ahora</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero-bg min-h-screen flex items-center pt-24 pb-16 relative">
+  <div class="hero-blob"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- TEXT -->
+      <div>
+        <div class="badge fade-up delay-1 mb-6">Calidad Industrial · Línea 2025</div>
+        <h1 class="font-display text-7xl md:text-8xl leading-none tracking-wide text-white fade-up delay-2 mb-6">
+          SILICONA<br/><span class="text-brand-orange">PARA TODO</span><br/>LO QUE IMPORTA
+        </h1>
+        <p class="text-brand-silver text-lg leading-relaxed fade-up delay-3 mb-8 max-w-md">
+          Sellantes y adhesivos de silicona de alto rendimiento para la industria alimentaria, automotriz e industrial. Certificados, confiables y listos para trabajar donde otros fallan.
+        </p>
+        <div class="flex flex-wrap gap-4 fade-up delay-4">
+          <a href="#productos" class="btn-primary">Ver Productos</a>
+          <a href="#contacto" class="btn-outline">Solicitar Muestra</a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-12 fade-up delay-4">
+          <div class="stat-box">
+            <div class="font-display text-3xl text-brand-orange">15+</div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Años en el mercado</div>
+          </div>
+          <div class="stat-box">
+            <div class="font-display text-3xl text-brand-orange">500+</div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Clientes activos</div>
+          </div>
+          <div class="stat-box">
+            <div class="font-display text-3xl text-brand-orange">FDA</div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Certificación Alimentaria</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO ILLUSTRATION -->
+      <div class="flex justify-center items-center relative fade-up delay-3">
+        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full bg-brand-orange/5 border border-brand-orange/20 flex items-center justify-center relative">
+          <div class="absolute inset-4 rounded-full border border-brand-orange/10 animate-spin" style="animation-duration:20s;"></div>
+          <!-- Tube SVG -->
+          <svg class="product-svg" width="200" height="280" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- tube body -->
+            <rect x="50" y="80" width="100" height="170" rx="10" fill="url(#tubeGrad)"/>
+            <!-- label area -->
+            <rect x="55" y="110" width="90" height="100" rx="4" fill="rgba(10,10,10,0.35)"/>
+            <text x="100" y="145" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="13" fill="#F4600C" letter-spacing="2">SILITECH</text>
+            <text x="100" y="162" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="10" fill="white" letter-spacing="1">ALIMENTARIA</text>
+            <text x="100" y="178" text-anchor="middle" font-family="Barlow,sans-serif" font-size="7" fill="rgba(255,255,255,0.5)">300ml · FDA Approved</text>
+            <circle cx="100" cy="200" r="10" fill="rgba(244,96,12,0.2)" stroke="#F4600C" stroke-width="1"/>
+            <!-- cap -->
+            <rect x="70" y="60" width="60" height="26" rx="5" fill="#F4600C"/>
+            <rect x="82" y="50" width="36" height="16" rx="4" fill="#d94e00"/>
+            <rect x="92" y="40" width="16" height="14" rx="2" fill="#c04400"/>
+            <!-- bead of silicone -->
+            <ellipse cx="100" cy="40" rx="5" ry="8" fill="rgba(255,255,255,0.7)"/>
+            <defs>
+              <linearGradient id="tubeGrad" x1="50" y1="0" x2="150" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1C2E44"/>
+                <stop offset="40%" stop-color="#2a3f58"/>
+                <stop offset="100%" stop-color="#1C2E44"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- floating labels -->
+          <div class="absolute -top-4 -right-6 bg-brand-orange text-white font-condensed font-700 text-xs px-3 py-1 rounded-sm uppercase tracking-wider shadow-lg">
+            ✓ No tóxico
+          </div>
+          <div class="absolute -bottom-2 -left-6 bg-brand-steel border border-brand-orange/30 text-brand-silver font-condensed text-xs px-3 py-1 rounded-sm uppercase tracking-wider">
+            Alta Temperatura
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRODUCTOS ═══════════ -->
+<section id="productos" class="py-24 bg-brand-steel relative">
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-40"></div>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="badge mb-4">Catálogo 2025</div>
+      <h2 class="font-display text-6xl md:text-7xl text-white tracking-wide">NUESTROS <span class="text-brand-orange">PRODUCTOS</span></h2>
+      <p class="text-brand-silver mt-4 max-w-xl mx-auto">Soluciones de silicona especializadas para cada industria. Formuladas con tecnología de última generación.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- CARD 1: Silicona Alimenticia -->
+      <div class="product-card rounded-lg p-6">
+        <div class="product-visual rounded-md mb-6 bg-gradient-to-br from-emerald-900/30 to-teal-900/20">
+          <svg class="product-svg" width="130" height="180" viewBox="0 0 130 180" fill="none">
+            <!-- jar shape -->
+            <rect x="25" y="50" width="80" height="110" rx="8" fill="url(#g1)"/>
+            <rect x="20" y="40" width="90" height="20" rx="4" fill="#2d7a5f"/>
+            <rect x="30" y="55" width="70" height="80" rx="4" fill="rgba(255,255,255,0.06)"/>
+            <text x="65" y="95" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="10" fill="#6ee7b7" letter-spacing="2">FOOD</text>
+            <text x="65" y="108" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="8" fill="white">GRADE</text>
+            <path d="M45 125 Q65 118 85 125" stroke="#6ee7b7" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <circle cx="65" cy="140" r="4" fill="#6ee7b7" opacity="0.4"/>
+            <text x="65" y="170" text-anchor="middle" font-family="Barlow,sans-serif" font-size="7" fill="rgba(255,255,255,0.4)">500g</text>
+            <defs>
+              <linearGradient id="g1" x1="25" y1="0" x2="105" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1a4d3a"/>
+                <stop offset="50%" stop-color="#24644c"/>
+                <stop offset="100%" stop-color="#1a4d3a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="badge mb-3" style="background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.4); color:#34d399;">Alimenticio</div>
+        <h3 class="font-display text-3xl text-white tracking-wide mb-2">SILISEAL FOOD</h3>
+        <p class="text-brand-silver text-sm leading-relaxed mb-4">Sellante de silicona 100% libre de solventes, certificado FDA y NSF. Ideal para equipos de procesamiento de alimentos, maquinaria industrial alimentaria y superficies en contacto con comida.</p>
+        <ul class="space-y-2 mb-6 text-sm text-brand-silver font-condensed">
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Certificado FDA 21 CFR</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Rango: -60°C a +230°C</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> No migra ni contamina</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Translúcido al curar</li>
+        </ul>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Desde</div>
+            <div class="font-display text-2xl text-brand-orange">L. 280.00</div>
+          </div>
+          <a href="#contacto" class="btn-primary text-sm">Cotizar</a>
+        </div>
+      </div>
+
+      <!-- CARD 2: Silicona Automotriz -->
+      <div class="product-card rounded-lg p-6" style="border-color:rgba(244,96,12,0.3);">
+        <!-- Featured badge -->
+        <div class="absolute top-4 right-4 bg-brand-orange text-white font-condensed text-xs px-2 py-1 uppercase tracking-wider rounded-sm">⭐ Popular</div>
+        <div class="product-visual rounded-md mb-6 bg-gradient-to-br from-red-900/30 to-orange-900/20">
+          <svg class="product-svg" width="100" height="200" viewBox="0 0 100 200" fill="none">
+            <!-- spray can -->
+            <rect x="20" y="60" width="60" height="120" rx="8" fill="url(#g2)"/>
+            <rect x="28" y="75" width="44" height="70" rx="3" fill="rgba(0,0,0,0.3)"/>
+            <text x="50" y="105" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="9" fill="#fb923c" letter-spacing="2">AUTO</text>
+            <text x="50" y="118" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="7" fill="white">SEAL RTV</text>
+            <text x="50" y="130" text-anchor="middle" font-family="Barlow,sans-serif" font-size="6" fill="rgba(255,255,255,0.4)">350ml</text>
+            <!-- nozzle -->
+            <rect x="36" y="45" width="28" height="18" rx="3" fill="#F4600C"/>
+            <rect x="44" y="35" width="12" height="14" rx="2" fill="#d94e00"/>
+            <!-- spray lines -->
+            <line x1="50" y1="30" x2="40" y2="10" stroke="rgba(244,96,12,0.5)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <line x1="50" y1="30" x2="50" y2="8" stroke="rgba(244,96,12,0.5)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <line x1="50" y1="30" x2="60" y2="10" stroke="rgba(244,96,12,0.5)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <!-- bottom label -->
+            <ellipse cx="50" cy="178" rx="25" ry="4" fill="rgba(0,0,0,0.4)"/>
+            <defs>
+              <linearGradient id="g2" x1="20" y1="0" x2="80" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#4a1a0a"/>
+                <stop offset="50%" stop-color="#7a2e10"/>
+                <stop offset="100%" stop-color="#4a1a0a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="badge mb-3">Automotriz</div>
+        <h3 class="font-display text-3xl text-white tracking-wide mb-2">AUTOSEAL RTV</h3>
+        <p class="text-brand-silver text-sm leading-relaxed mb-4">Sellante RTV de silicona de alta temperatura para juntas, empaques y superficies del motor. Resistente a aceites, refrigerantes y vibraciones extremas.</p>
+        <ul class="space-y-2 mb-6 text-sm text-brand-silver font-condensed">
+          <li class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Resiste hasta 350°C</li>
+          <li class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Anti-vibración y flexible</li>
+          <li class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Cura en 24h / uso en 1h</li>
+          <li class="flex items-center gap-2"><span class="text-brand-orange">✓</span> Compatible OEM</li>
+        </ul>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Desde</div>
+            <div class="font-display text-2xl text-brand-orange">L. 195.00</div>
+          </div>
+          <a href="#contacto" class="btn-primary text-sm">Cotizar</a>
+        </div>
+      </div>
+
+      <!-- CARD 3: Silicona Industrial -->
+      <div class="product-card rounded-lg p-6">
+        <div class="product-visual rounded-md mb-6 bg-gradient-to-br from-blue-900/30 to-indigo-900/20">
+          <svg class="product-svg" width="140" height="190" viewBox="0 0 140 190" fill="none">
+            <!-- cartridge tube -->
+            <rect x="30" y="30" width="80" height="140" rx="6" fill="url(#g3)"/>
+            <rect x="30" y="30" width="80" height="25" rx="6" fill="#1e3a5f"/>
+            <rect x="40" y="60" width="60" height="80" rx="3" fill="rgba(255,255,255,0.05)"/>
+            <text x="70" y="92" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="9" fill="#60a5fa" letter-spacing="2">INDUS</text>
+            <text x="70" y="106" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="7" fill="white">SHIELD PRO</text>
+            <text x="70" y="118" text-anchor="middle" font-family="Barlow,sans-serif" font-size="6" fill="rgba(255,255,255,0.4)">310ml cartridge</text>
+            <!-- tip -->
+            <polygon points="55,30 85,30 80,10 60,10" fill="#1e3a5f"/>
+            <rect x="63" y="5" width="14" height="8" rx="2" fill="#162d4a"/>
+            <!-- bottom piston -->
+            <ellipse cx="70" cy="168" rx="35" ry="5" fill="rgba(255,255,255,0.1)"/>
+            <rect x="36" y="163" width="68" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+            <defs>
+              <linearGradient id="g3" x1="30" y1="0" x2="110" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0f2744"/>
+                <stop offset="50%" stop-color="#1a3d63"/>
+                <stop offset="100%" stop-color="#0f2744"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="badge mb-3" style="background:rgba(96,165,250,0.1); border-color:rgba(96,165,250,0.4); color:#60a5fa;">Industrial</div>
+        <h3 class="font-display text-3xl text-white tracking-wide mb-2">INDUSHIELD PRO</h3>
+        <p class="text-brand-silver text-sm leading-relaxed mb-4">Sellante industrial multiusos de silicona estructural para construcción, manufactura y mantenimiento. Adherencia excepcional en metal, vidrio, concreto y plásticos.</p>
+        <ul class="space-y-2 mb-6 text-sm text-brand-silver font-condensed">
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Adherencia en superficies húmedas</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> UV y weatherproof</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Sin corrosión ni manchas</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Disponible en 6 colores</li>
+        </ul>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-brand-silver text-xs font-condensed uppercase tracking-wider">Desde</div>
+            <div class="font-display text-2xl text-brand-orange">L. 155.00</div>
+          </div>
+          <a href="#contacto" class="btn-primary text-sm">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VENTAJAS ═══════════ -->
+<section id="ventajas" class="py-24 bg-brand-dark relative overflow-hidden">
+  <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #F4600C 1px, transparent 1px); background-size: 40px 40px;"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="badge mb-6">¿Por qué elegirnos?</div>
+        <h2 class="font-display text-5xl md:text-6xl text-white tracking-wide leading-tight mb-8">CALIDAD QUE <span class="text-brand-orange">NO</span> NEGOCIAS</h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 bg-brand-orange/10 border border-brand-orange/30 rounded flex items-center justify-center flex-shrink-0 mt-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4600C" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h4 class="font-condensed font-700 text-white uppercase tracking-wide mb-1">Certificaciones Internacionales</h4>
+              <p class="text-brand-silver text-sm leading-relaxed">Nuestros productos cumplen con FDA, NSF, ISO 10993 y REACH. Documentación disponible para auditorías.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 bg-brand-orange/10 border border-brand-orange/30 rounded flex items-center justify-center flex-shrink-0 mt-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4600C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <h4 class="font-condensed font-700 text-white uppercase tracking-wide mb-1">Entrega Rápida en Honduras</h4>
+              <p class="text-brand-silver text-sm leading-relaxed">Stock permanente en Tegucigalpa y San Pedro Sula. Despacho 24-48 horas a nivel nacional.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 bg-brand-orange/10 border border-brand-orange/30 rounded flex items-center justify-center flex-shrink-0 mt-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4600C" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h4 class="font-condensed font-700 text-white uppercase tracking-wide mb-1">Soporte Técnico Especializado</h4>
+              <p class="text-brand-silver text-sm leading-relaxed">Equipo de ingenieros disponibles para asesoría de aplicación, selección de producto y resolución de problemas.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 bg-brand-orange/10 border border-brand-orange/30 rounded flex items-center justify-center flex-shrink-0 mt-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4600C" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <h4 class="font-condensed font-700 text-white uppercase tracking-wide mb-1">Precios Competitivos & Volumen</h4>
+              <p class="text-brand-silver text-sm leading-relaxed">Descuentos especiales para compras al por mayor, distribuidores y proyectos industriales de gran escala.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual panel -->
+      <div class="relative">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-brand-steel rounded-lg p-6 border border-white/5 text-center col-span-2">
+            <div class="font-display text-5xl text-brand-orange mb-1">99.8%</div>
+            <div class="text-brand-silver font-condensed uppercase tracking-wider text-sm">Tasa de satisfacción</div>
+          </div>
+          <div class="bg-brand-steel rounded-lg p-6 border border-white/5 text-center">
+            <div class="font-display text-4xl text-white mb-1">24h</div>
+            <div class="text-brand-silver font-condensed uppercase tracking-wider text-xs">Tiempo de despacho</div>
+          </div>
+          <div class="bg-brand-steel rounded-lg p-6 border border-white/5 text-center">
+            <div class="font-display text-4xl text-white mb-1">3</div>
+            <div class="text-brand-silver font-condensed uppercase tracking-wider text-xs">Líneas especializadas</div>
+          </div>
+          <div class="bg-gradient-to-br from-brand-orange/20 to-transparent rounded-lg p-6 border border-brand-orange/25 text-center col-span-2">
+            <div class="text-brand-orange font-condensed font-700 uppercase tracking-wider text-sm mb-2">Garantía SiliTech</div>
+            <p class="text-brand-silver text-sm">Si el producto no cumple con las especificaciones técnicas, lo reponemos sin costo alguno.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ LEAD FORM ═══════════ -->
+<section id="contacto" class="py-24 bg-brand-steel relative">
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-40"></div>
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="badge mb-4">Contáctenos</div>
+      <h2 class="font-display text-6xl text-white tracking-wide mb-4">SOLICITA TU <span class="text-brand-orange">COTIZACIÓN</span></h2>
+      <p class="text-brand-silver max-w-lg mx-auto">Completa el formulario y un asesor especializado te contactará en menos de 2 horas hábiles.</p>
+    </div>
+
+    <div class="lead-form rounded-lg p-8 md:p-12">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Nombre completo *</label>
+          <input type="text" placeholder="Ej. Carlos Mejía" class="form-input rounded" />
+        </div>
+        <div>
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Empresa</label>
+          <input type="text" placeholder="Nombre de tu empresa" class="form-input rounded" />
+        </div>
+        <div>
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Correo electrónico *</label>
+          <input type="email" placeholder="correo@empresa.com" class="form-input rounded" />
+        </div>
+        <div>
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Teléfono / WhatsApp *</label>
+          <input type="tel" placeholder="+504 0000-0000" class="form-input rounded" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Producto de interés *</label>
+          <select class="form-input rounded appearance-none">
+            <option value="" style="background:#1C2331;">Selecciona un producto...</option>
+            <option value="alimenticia" style="background:#1C2331;">SiliSeal Food — Silicona Alimenticia</option>
+            <option value="automotriz" style="background:#1C2331;">AutoSeal RTV — Silicona Automotriz</option>
+            <option value="industrial" style="background:#1C2331;">InduShield Pro — Silicona Industrial</option>
+            <option value="todos" style="background:#1C2331;">Varios / No estoy seguro</option>
+          </select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="font-condensed text-sm uppercase tracking-wider text-brand-silver mb-2 block">Mensaje o requerimiento</label>
+          <textarea rows="4" placeholder="Cuéntanos sobre tu aplicación, volumen estimado u otros detalles..." class="form-input rounded resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 mt-8">
+        <p class="text-brand-silver text-xs font-condensed">
+          Al enviar aceptas nuestra <a href="#" class="text-brand-orange underline">política de privacidad</a>. No compartimos tu información con terceros.
+        </p>
+        <button onclick="handleFormSubmit()" class="btn-primary w-full sm:w-auto text-center">Enviar Solicitud →</button>
+      </div>
+
+      <div id="form-success" class="hidden mt-6 p-4 bg-emerald-900/30 border border-emerald-500/30 rounded text-emerald-400 font-condensed text-center uppercase tracking-wider text-sm">
+        ✓ ¡Mensaje enviado! Te contactaremos pronto.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-brand-dark border-t border-white/5 py-10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><polygon points="4,28 16,4 28,28" fill="#F4600C" opacity="0.9"/><polygon points="10,28 16,16 22,28" fill="#0A0A0A"/></svg>
+      <span class="font-display text-xl tracking-widest text-white">SILITECH<span class="text-brand-orange">PRO</span></span>
+    </div>
+    <p class="text-brand-silver text-sm font-condensed text-center">
+      © 2025 SiliTech Pro Honduras · <span class="text-brand-orange/60">Página de demostración — No es una empresa real</span>
+    </p>
+    <div class="flex gap-6 text-brand-silver font-condensed text-sm uppercase tracking-wider">
+      <a href="#" class="hover:text-brand-orange transition-colors">Privacidad</a>
+      <a href="#" class="hover:text-brand-orange transition-colors">Términos</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function handleFormSubmit() {
+    document.getElementById('form-success').classList.remove('hidden');
+    setTimeout(() => document.getElementById('form-success').classList.add('hidden'), 4000);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const el = document.querySelector(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('#mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+  });
+</script>
+</body>
+</html>
